@@ -1,0 +1,7 @@
+#parse("includes/header.vm")
+
+<div class="container-fluid" align="center" style="margin-top: 20px">
+    <p>HOME</p>
+</div>
+
+#parse("includes/footer.vm")
