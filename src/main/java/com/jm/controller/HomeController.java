@@ -4,6 +4,7 @@ import com.jm.service.WordNetService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 /**
@@ -21,9 +22,10 @@ public class HomeController {
         return "home";
     }
 
-    @RequestMapping(value = "/wordnet")
-    public String tryWordNet() {
-        wordNetService.go();
+    @RequestMapping(value = "/wordnet/{word}/{type}")
+    public String tryWordNet(@PathVariable("word") String word,
+                             @PathVariable("type") String type) {
+        wordNetService.go(type, word);
         return "redirect:/";
     }
 
