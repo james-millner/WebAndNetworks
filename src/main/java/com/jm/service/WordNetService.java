@@ -1,10 +1,18 @@
 package com.jm.service;
 
-import net.didion.jwnl.*;
-import net.didion.jwnl.data.*;
+import com.jm.domain.Meaning;
+import com.jm.domain.MeaningRepository;
+import com.jm.domain.Word;
+import com.jm.domain.WordRepository;
+import net.didion.jwnl.JWNL;
+import net.didion.jwnl.JWNLException;
+import net.didion.jwnl.data.IndexWord;
+import net.didion.jwnl.data.POS;
+import net.didion.jwnl.data.Synset;
 import net.didion.jwnl.dictionary.Dictionary;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import java.io.InputStream;
 
@@ -23,6 +31,12 @@ public class WordNetService {
     private static POS adjective = POS.ADJECTIVE;
     private static POS adverb = POS.ADVERB;
 
+    @Autowired
+    private WordRepository wordRepository;
+
+    @Autowired
+    private MeaningRepository meaningRepository;
+
     public void go(String type, String word) {
         initWordNet();
 
@@ -40,7 +54,13 @@ public class WordNetService {
 
         try {
             Synset[] response = searchDictionary(pos, word);
-            getMeaning(response, pos);
+
+            Word newWord = new Word();
+            newWord.setSearch(word);
+            newWord.setType(type);
+            wordRepository.save(newWord);
+
+            getMeaning(response, pos, word);
         } catch (Exception e){
             logger.fatal(e);
         }
@@ -68,9 +88,15 @@ public class WordNetService {
      * @param wordMeanings
      * @param type
      */
-    public void getMeaning(Synset[] wordMeanings, POS type) {
+    public void getMeaning(Synset[] wordMeanings, POS type, String word) {
+        Word wordMeaning = wordRepository.findBySearch(word);
         for (Synset sense : wordMeanings)
         {
+            Meaning meaning = new Meaning();
+            meaning.setWord(wordMeaning);
+            meaning.setMeaning(sense.getGloss());
+            meaningRepository.save(meaning);
+
             System.out.println(type + ": " + sense.getGloss());
         }
     }
