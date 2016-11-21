@@ -26,11 +26,6 @@ public class WordNetService {
 
     private Log logger = LogFactory.getLog(this.getClass());
 
-    private static POS noun = POS.NOUN;
-    private static POS verb = POS.VERB;
-    private static POS adjective = POS.ADJECTIVE;
-    private static POS adverb = POS.ADVERB;
-
     @Autowired
     private WordRepository wordRepository;
 
