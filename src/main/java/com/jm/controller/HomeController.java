@@ -27,7 +27,24 @@ public class HomeController {
 
     @RequestMapping(value = "/")
     public String home(Model model){
+        List<Word> words = wordRepository.findAll();
+
+        model.addAttribute("words", words);
         return "home";
+    }
+
+    @RequestMapping(value = "/word/{id}")
+    public String getWord(@PathVariable("id") Long id) {
+        Word found = wordRepository.findOne(id);
+        System.out.println("***********");
+        System.out.println(found.getId());
+        System.out.println(found.getSearch());
+        System.out.println("Meanings: ");
+        for(Meaning m : found.getMeanings()) {
+            System.out.println(m.getMeaning());
+        }
+        System.out.println("************");
+        return "redirect:/";
     }
 
     @RequestMapping(value = "/wordnet/{word}/{type}")
@@ -41,7 +58,7 @@ public class HomeController {
         } else {
             wordNetService.go(type, word);
         }
-        
+
         return "redirect:/";
 
     }

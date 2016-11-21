@@ -1,7 +1,29 @@
 #parse("includes/header.vm")
 
 <div class="container-fluid" align="center" style="margin-top: 20px">
-    <p>HOME</p>
+    <table class="table table-striped table-condensed">
+        <thead>
+            <th>ID</th>
+            <th>Word</th>
+            <th>Type</th>
+        </thead>
+        <tbody
+            #foreach($word in $words)
+                <tr>
+                    <td>$word.id</td>
+                    <td><a href="/word/$word.id">$word.search</a></td>
+                    <td>$word.type</td>
+                </tr>
+            #end
+    </table>
 </div>
+
+<script>
+    $(document).ready(function(){
+        $('.table').DataTable( {
+            "order": [[ 0, 'asc' ]]
+        });
+    });
+</script>
 
 #parse("includes/footer.vm")
