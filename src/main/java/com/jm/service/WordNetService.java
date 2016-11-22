@@ -57,7 +57,7 @@ public class WordNetService {
 
             getMeaning(response, pos, word);
         } catch (Exception e){
-            logger.fatal(e);
+            logger.info("WordNetService - Can't get that word from WordNet.");
         }
     }
 
@@ -74,7 +74,7 @@ public class WordNetService {
         Dictionary dictionary = Dictionary.getInstance();
 
         IndexWord word = dictionary.lookupIndexWord(type, stringWord);
-        logger.info("Senses of the word 'door':");
+        logger.info("Senses of the word '" + stringWord + "':");
         return word.getSenses();
     }
 
@@ -109,5 +109,6 @@ public class WordNetService {
         } catch (Exception e) {
             e.printStackTrace();
         }
+
     }
 }

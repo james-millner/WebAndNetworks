@@ -4,12 +4,18 @@ import com.jm.domain.Meaning;
 import com.jm.domain.Word;
 import com.jm.domain.WordRepository;
 import com.jm.service.WordNetService;
+import com.jm.service.WordsAPI;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
+import java.io.IOException;
 import java.util.List;
 
 /**
@@ -19,48 +25,59 @@ import java.util.List;
 @Controller
 public class HomeController {
 
+    private Log logger = LogFactory.getLog(this.getClass());
+
     @Autowired
     private WordNetService wordNetService;
 
     @Autowired
     private WordRepository wordRepository;
 
+    @Autowired
+    private WordsAPI wordsAPI;
+
     @RequestMapping(value = "/")
     public String home(Model model){
-        List<Word> words = wordRepository.findAll();
-
-        model.addAttribute("words", words);
+        model.addAttribute("words", wordRepository.findAll());
         return "home";
     }
 
     @RequestMapping(value = "/word/{id}")
     public String getWord(@PathVariable("id") Long id) {
         Word found = wordRepository.findOne(id);
-        System.out.println("***********");
-        System.out.println(found.getId());
-        System.out.println(found.getSearch());
-        System.out.println("Meanings: ");
+        logger.info("***********");
+        logger.info(found.getId());
+        logger.info(found.getSearch());
+        logger.info("Meanings: ");
         for(Meaning m : found.getMeanings()) {
-            System.out.println(m.getMeaning());
+            logger.info(m.getMeaning());
         }
-        System.out.println("************");
+        logger.info("************");
         return "redirect:/";
     }
 
-    @RequestMapping(value = "/wordnet/{word}/{type}")
-    public String tryWordNet(@PathVariable("word") String word,
-                             @PathVariable("type") String type) {
+    @RequestMapping(value = "/wordnet", method = RequestMethod.POST)
+    public String getWordFromWordnet(@RequestParam("word") String word,
+                                     @RequestParam("type") String type) {
 
         List<Word> words = wordRepository.findAllBySearch(word);
 
-        if(words.size() == 0) {
-            System.out.println("We do have this word!!!");
+        if(words.size() >= 1) {
+            logger.info("We already have this word.");
         } else {
-            wordNetService.go(type, word);
+            try {
+                wordNetService.go(type, word);
+            } catch (Exception e) {
+                logger.info("HomeController - Can't find that word on the word net.");
+            }
         }
 
         return "redirect:/";
-
     }
 
+    @RequestMapping(value = "/words-api")
+    public String testWordsApi() throws IOException {
+        wordsAPI.go("exam");
+        return "redirect:/";
+    }
 }
