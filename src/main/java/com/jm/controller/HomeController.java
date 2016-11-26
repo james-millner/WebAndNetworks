@@ -3,8 +3,10 @@ package com.jm.controller;
 import com.jm.domain.Meaning;
 import com.jm.domain.Word;
 import com.jm.domain.WordRepository;
+import com.jm.service.OpenNPL;
 import com.jm.service.WordNetService;
 import com.jm.service.WordsAPI;
+import net.didion.jwnl.data.Exc;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,6 +37,9 @@ public class HomeController {
 
     @Autowired
     private WordsAPI wordsAPI;
+
+    @Autowired
+    private OpenNPL openNPL;
 
     @RequestMapping(value = "/")
     public String home(Model model){
@@ -78,6 +83,17 @@ public class HomeController {
     @RequestMapping(value = "/words-api")
     public String testWordsApi() throws IOException {
         wordsAPI.go("exam");
+        return "redirect:/";
+    }
+
+    @RequestMapping(value = "/open-nlp")
+    public String testOpenNLP() throws Exception {
+        List<Word> words = wordRepository.findAll();
+        for(Word word : words) {
+            for(Meaning meaning : word.getMeanings()) {
+                openNPL.go(meaning.getMeaning());
+            }
+        }
         return "redirect:/";
     }
 }

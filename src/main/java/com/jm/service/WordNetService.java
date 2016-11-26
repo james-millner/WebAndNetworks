@@ -50,14 +50,18 @@ public class WordNetService {
         try {
             Synset[] response = searchDictionary(pos, word);
 
-            Word newWord = new Word();
-            newWord.setSearch(word);
-            newWord.setType(type);
-            wordRepository.save(newWord);
+            logger.info("***" + wordRepository.doesWordExist(word, type) + "***");
 
-            getMeaning(response, pos, word);
+            if(!wordRepository.doesWordExist(word,type)) {
+                Word newWord = new Word();
+                newWord.setSearch(word);
+                newWord.setType(type);
+                wordRepository.save(newWord);
+
+                getMeaning(response, pos, word);
+            }
         } catch (Exception e){
-            logger.info("WordNetService - Can't get that word from WordNet.");
+            logger.info("WordNetService - '" + word + "'" + " Can't get that word from WordNet.");
         }
     }
 
@@ -74,7 +78,6 @@ public class WordNetService {
         Dictionary dictionary = Dictionary.getInstance();
 
         IndexWord word = dictionary.lookupIndexWord(type, stringWord);
-        logger.info("Senses of the word '" + stringWord + "':");
         return word.getSenses();
     }
 
@@ -91,8 +94,6 @@ public class WordNetService {
             meaning.setWord(wordMeaning);
             meaning.setMeaning(sense.getGloss());
             meaningRepository.save(meaning);
-
-            System.out.println(type + ": " + sense.getGloss());
         }
     }
 
