@@ -1,5 +1,7 @@
 package com.jm.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 
 /**
@@ -15,6 +17,7 @@ public class Meaning {
     private Long id;
 
     @ManyToOne
+    @JsonIgnore
     private Word word;
 
     @Column(length=100000)
