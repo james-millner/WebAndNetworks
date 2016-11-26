@@ -69,7 +69,7 @@ public class OpenNPL {
 
                 //Some of the meanings supplied from Wordnet include sub text contained in either "" | () along with semi colons.
                 //replaceAll removes those occurrences
-                detectedWord = detectedWord.replaceAll("\"|;|\\)|\\(", "");
+                detectedWord = detectedWord.replaceAll("\"|;|\\)|\\(|,|\\?", "");
                 if(type.equals(noun)){
                     wordNetService.go("noun", detectedWord);
                     logger.info("Noun: " + detectedWord);
