@@ -47,8 +47,9 @@ public class HomeController {
         return "home";
     }
 
-    @RequestMapping(value = "/word/{id}")
-    public String getWord(@PathVariable("id") Long id) {
+    @RequestMapping(value = "/word-definition/{id}")
+    public String getWord(@PathVariable("id") Long id,
+                          Model model) {
         Word found = wordRepository.findOne(id);
         logger.info("***********");
         logger.info(found.getId());
@@ -58,7 +59,8 @@ public class HomeController {
             logger.info(m.getMeaning());
         }
         logger.info("************");
-        return "redirect:/";
+        model.addAttribute("word", found);
+        return "word";
     }
 
     @RequestMapping(value = "/wordnet", method = RequestMethod.POST)

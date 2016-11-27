@@ -1,0 +1,15 @@
+#parse("includes/header.vm")
+
+#parse("includes/menu.vm")
+
+<div class="container">
+    <h2>$word.search</h2>
+    <div class="divider"></div>
+    <ul class="collection">
+        #foreach($meaning in $word.meanings)
+            <li class="collection-item">$meaning.meaning</li>
+        #end
+    </ul>
+</div>
+
+#parse("includes/footer.vm")
