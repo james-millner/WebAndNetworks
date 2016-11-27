@@ -1,7 +1,4 @@
-#parse("includes/header.vm")
-
-#parse("includes/menu.vm")
-
+#if($word)
 <div class="container">
     <h2>$word.search</h2>
     <div class="divider"></div>
@@ -11,5 +8,8 @@
         #end
     </ul>
 </div>
-
-#parse("includes/footer.vm")
+#else
+    <div class="container">
+        <h2>Select a word.</h2>
+    </div>
+#end

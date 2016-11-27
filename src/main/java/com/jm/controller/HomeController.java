@@ -60,7 +60,8 @@ public class HomeController {
         }
         logger.info("************");
         model.addAttribute("word", found);
-        return "word";
+        model.addAttribute("words", wordRepository.findAll());
+        return "home";
     }
 
     @RequestMapping(value = "/wordnet", method = RequestMethod.POST)

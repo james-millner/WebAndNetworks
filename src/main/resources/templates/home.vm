@@ -2,38 +2,42 @@
 
 #parse("includes/menu.vm")
 
-<div class="container" style="margin-top: 50px">
-    <form action="/wordnet" method="POST">
-        <div class="col s12">
-            <input type="text" name="word" placeholder="Enter a word..." autofocus/>
-        </div>
-        <div class="col s12">
-            <select name="type">
-                <option value="noun">Noun</option>
-                <option value="verb">Verb</option>
-                <option value="adjective">Adjective</option>
-                <option value="adverb">Adverb</option>
-            </select>
-        </div>
-        <div class="col s12">
-            <button type="submit">Submit</button>
-        </div>
-    </form>
-</div>
-
-<div class="row" align="center" style="margin-top: 20px">
-    <div class="col s12">
-        <a class="waves-effect waves-light btn" href="/open-nlp">Auto Gather Words</a>
+<div class="row">
+    <div class="col s6">
+        #parse("word.vm")
     </div>
-    <div class="col s1"></div>
-    <div class="col s10">
-        <table class="table table-striped table-condensed">
-            <thead>
+
+    <div class="col s6">
+        <div class="col s12">
+            <form action="/wordnet" method="POST">
+                <div class="col s12">
+                    <input type="text" name="word" placeholder="Enter a word..." autofocus/>
+                </div>
+                <div class="col s12">
+                    <select name="type">
+                        <option value="noun">Noun</option>
+                        <option value="verb">Verb</option>
+                        <option value="adjective">Adjective</option>
+                        <option value="adverb">Adverb</option>
+                    </select>
+                </div>
+                <div class="col s12">
+                    <button type="submit">Submit</button>
+                </div>
+            </form>
+        </div>
+        <div class="col s12" style="margin-top: 50px" align="center">
+            <a class="waves-effect waves-light btn" href="/open-nlp">Auto Gather Words</a>
+            <p>*This get al</p>
+        </div>
+        <div class="col s12" style="margin-top: 50px">
+            <table class="table table-striped table-condensed">
+                <thead>
                 <th>ID</th>
                 <th>Word</th>
                 <th>Type</th>
-            </thead>
-            <tbody
+                </thead>
+                <tbody
                 #foreach($word in $words)
                     <tr>
                         <td>$word.id</td>
@@ -41,16 +45,16 @@
                         <td>$word.type</td>
                     </tr>
                 #end
-        </table>
+            </table>
+        </div>
     </div>
-    <div class="col s1"></div>
 </div>
 
 <script>
     $(document).ready(function(){
         $('.table').DataTable( {
             "order": [[ 1, 'asc' ]],
-            "pageLength": 50
+            "pageLength": 10
         });
     });
 
