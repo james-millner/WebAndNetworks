@@ -6,7 +6,6 @@ import com.jm.domain.WordRepository;
 import com.jm.service.OpenNPL;
 import com.jm.service.WordNetService;
 import com.jm.service.WordsAPI;
-import net.didion.jwnl.data.Exc;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,6 +21,7 @@ import java.util.List;
 
 /**
  * com.jm.controller.HomeController Class will handle all communication with WordNet.
+ *
  * Created by James Millner on 01/11/2016 at 14:56.
  */
 @Controller

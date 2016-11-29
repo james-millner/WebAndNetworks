@@ -58,7 +58,7 @@ public class WordNetService {
                 newWord.setType(type);
                 wordRepository.save(newWord);
 
-                getMeaning(response, pos, word);
+                getMeaning(response, word);
             }
         } catch (Exception e){
             logger.info("WordNetService - '" + word + "'" + " Can't get that word from WordNet.");
@@ -84,9 +84,8 @@ public class WordNetService {
     /**
      * Method to take an array of descriptions supplied with from searching the WordNet dictionary.
      * @param wordMeanings
-     * @param type
      */
-    public void getMeaning(Synset[] wordMeanings, POS type, String word) {
+    public void getMeaning(Synset[] wordMeanings, String word) {
         Word wordMeaning = wordRepository.findBySearch(word);
         for (Synset sense : wordMeanings)
         {

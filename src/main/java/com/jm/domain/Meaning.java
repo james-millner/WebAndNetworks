@@ -5,7 +5,8 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import javax.persistence.*;
 
 /**
- * com.jm.domain.Meaning Class will...
+ * com.jm.domain.Meaning Class will represent meanings of words searched and stored from WordNet.
+ *
  * Created by James Millner on 20/11/2016 at 23:02.
  */
 

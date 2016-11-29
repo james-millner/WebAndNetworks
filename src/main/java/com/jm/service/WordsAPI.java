@@ -9,7 +9,7 @@ import org.springframework.http.MediaType;
 import org.springframework.stereotype.Service;
 
 /**
- * com.jm.service.WordsAPI Class will...
+ * com.jm.service.WordsAPI Class will handle requests too and from the WordsAPI available through Mashape Market place
  * Created by James Millner on 22/11/2016 at 10:16.
  */
 @Service
