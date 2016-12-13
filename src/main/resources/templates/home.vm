@@ -28,7 +28,6 @@
         </div>
         <div class="col s12" style="margin-top: 50px" align="center">
             <a class="waves-effect waves-light btn" href="/open-nlp">Auto Gather Words</a>
-            <p>*This get al</p>
         </div>
         <div class="col s12" style="margin-top: 50px">
             <table class="table table-striped table-condensed">

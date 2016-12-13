@@ -1,0 +1,40 @@
+README File for running the WordNet Application:
+
+1. Firstly please ensure that java is installed by using:
+
+    java -v
+
+    Which should then show the following:
+
+    java version "1.8.0_101"
+    Java(TM) SE Runtime Environment (build 1.8.0_101-b13)
+    Java HotSpot(TM) Client VM (build 25.101-b13, mixed mode)
+
+2. Then install Maven as it is required to build the project. Firstly check if maven is already installed by typing:
+
+    mvn -v
+
+    Which should show the following:
+
+    Apache Maven 3.3.9 (bb52d8502b132ec0a5a3f4c09453c07478323dc5; 2015-11-10T16:41:47+00:00)
+    Maven home: C:\Program Files (x86)\apache-maven-3.3.9\bin\..
+    Java version: 1.8.0_101, vendor: Oracle Corporation
+    Java home: C:\Program Files (x86)\Java\jdk1.8.0_101\jre
+    Default locale: en_GB, platform encoding: Cp1252
+    OS name: "windows 10", version: "10.0", arch: "x86", family: "dos"
+
+    If you don't see the above in cmd, then Maven is not installed. To get maven please visit:
+
+    http://maven.apache.org/install.html
+    * This link provides maven and instructions on how to install and configure.
+
+3. Ensure a local instance of MySQL is running - This is required to store results from Wordnet and OpenNLP
+
+   The database config is contained in application.properties. By default its set to accept a MySQL DB running on port 3306.
+   If your configuration for MySQL is beyond the default config, please change the application.properties accordingly.
+
+4. Once MySQL is running via localhost on port 3306, create a blank schema called "wordnet"
+
+5. Finally once Maven & Java are installed, and there is a schema contained in MySQL called wordnet, navigate to the root folder for the directory.
+
+6. Open a CMD window at the root of the folder and type: "mvn spring-boot:run". The application should now begin to boot up and create the necessary DB structure.

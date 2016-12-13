@@ -20,7 +20,7 @@ public class WordsAPI {
 
     private Log logger = LogFactory.getLog(this.getClass());
 
-    public void go(String word) {
+    public String go(String word) {
         String url = "https://wordsapiv1.p.mashape.com/words/" + word + "/";
 
         try {
@@ -28,9 +28,10 @@ public class WordsAPI {
                     .header("X-Mashape-Key", apiKey)
                     .header("Accept", MediaType.APPLICATION_JSON_VALUE).asJson();
 
-            System.out.println(response.getBody().toString());
+            return response.getBody().toString();
         } catch (Exception e){
             logger.fatal(e);
+            return "Cannot get word from either WordNet or WordsAPI";
         }
 
     }

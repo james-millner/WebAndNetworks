@@ -12,7 +12,6 @@ import java.util.List;
  * Created by James Millner on 20/11/2016 at 23:01.
  */
 @Entity
-
 public class Word {
 
     @Id
